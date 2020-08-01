@@ -121,7 +121,8 @@ export class CommsPanel extends Component<ConnectionPanelProps, ConnectionPanelS
      * This function establishes the connect with the websocket and also ensures constant reconnection if connection closes
      */
     connect = () => {
-        this.ws = new WebSocket("ws://localhost:8001/broadcast");
+        // this.ws = new WebSocket("ws://localhost:8001/broadcast");
+        this.ws = new WebSocket("ws://sideband.septemberalways.com/broadcast");
         this.ws.onopen = () => this.onOpen;
         this.ws.onmessage = (messageEvent: MessageEvent) => this.onMessage(messageEvent);
         this.ws.onclose = e => this.onClose(e);

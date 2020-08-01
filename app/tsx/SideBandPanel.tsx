@@ -9,6 +9,7 @@ import { registerMessageListener, unregisterListener } from "danack-message";
 import { CommsPanel } from "./CommsPanel";
 
 import {SoundType} from "./sounds";
+import {ChangeEvent} from "react";
 
 const {Howl, Howler} = require('howler');
 
@@ -19,12 +20,14 @@ export interface SideBandPanelProps {
 interface SideBandPanelState {
     username: string;
     usernameInput: string;
+    volume: number;
 }
 
 function getDefaultState(/*initialControlParams: object*/): SideBandPanelState {
     return {
         username: null,
-        usernameInput: ""
+        usernameInput: "",
+        volume: 0.4
     };
 }
 
@@ -76,7 +79,7 @@ export class SideBandPanel extends Component<SideBandPanelProps, SideBandPanelSt
 
         var sound = new Howl({
             src: [filename],
-            volume: 0.4,
+            volume: this.state.volume,
         });
 
         sound.play();
@@ -89,6 +92,20 @@ export class SideBandPanel extends Component<SideBandPanelProps, SideBandPanelSt
 
     setUsername() {
         this.setState({username: this.state.usernameInput});
+    }
+
+    changeVolume(event:any) {
+
+        let new_value = parseFloat(event.currentTarget.value);
+        if (new_value > 1.0) {
+            new_value = 1.0;
+        }
+
+        if (new_value < 0.0) {
+            new_value = 0.0;
+        }
+
+        this.setState({volume: new_value})
     }
 
     render(props: SideBandPanelProps, state: SideBandPanelState) {
@@ -106,6 +123,12 @@ export class SideBandPanel extends Component<SideBandPanelProps, SideBandPanelSt
         }
 
         return  <div class='motions_panel_react'>
+            Volume: <input
+            type='number'
+            value={this.state.volume}
+            onChange={(event) => this.changeVolume(event)}
+        />
+
             <CommsPanel username={this.state.username}/><br/>
 
             <SoundButtonPanel text={"Click"} type={"click"}/>

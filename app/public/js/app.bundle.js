@@ -3710,7 +3710,8 @@ const { Howl, Howler } = __webpack_require__(/*! howler */ "./node_modules/howle
 function getDefaultState() {
     return {
         username: null,
-        usernameInput: ""
+        usernameInput: "",
+        volume: 0.4
     };
 }
 class SideBandPanel extends preact__WEBPACK_IMPORTED_MODULE_0__["Component"] {
@@ -3740,7 +3741,7 @@ class SideBandPanel extends preact__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         console.log("playing sound");
         var sound = new Howl({
             src: [filename],
-            volume: 0.4,
+            volume: this.state.volume,
         });
         sound.play();
     }
@@ -3751,6 +3752,16 @@ class SideBandPanel extends preact__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     setUsername() {
         this.setState({ username: this.state.usernameInput });
     }
+    changeVolume(event) {
+        let new_value = parseFloat(event.currentTarget.value);
+        if (new_value > 1.0) {
+            new_value = 1.0;
+        }
+        if (new_value < 0.0) {
+            new_value = 0.0;
+        }
+        this.setState({ volume: new_value });
+    }
     render(props, state) {
         if (this.state.username === null) {
             return Object(preact__WEBPACK_IMPORTED_MODULE_0__["h"])("div", null,
@@ -3760,6 +3771,8 @@ class SideBandPanel extends preact__WEBPACK_IMPORTED_MODULE_0__["Component"] {
                     Object(preact__WEBPACK_IMPORTED_MODULE_0__["h"])("button", { onClick: () => this.setUsername() }, "Set username")));
         }
         return Object(preact__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: 'motions_panel_react' },
+            "Volume: ",
+            Object(preact__WEBPACK_IMPORTED_MODULE_0__["h"])("input", { type: 'number', value: this.state.volume, onChange: (event) => this.changeVolume(event) }),
             Object(preact__WEBPACK_IMPORTED_MODULE_0__["h"])(_CommsPanel__WEBPACK_IMPORTED_MODULE_4__["CommsPanel"], { username: this.state.username }),
             Object(preact__WEBPACK_IMPORTED_MODULE_0__["h"])("br", null),
             Object(preact__WEBPACK_IMPORTED_MODULE_0__["h"])(_SoundButtonPanel__WEBPACK_IMPORTED_MODULE_1__["SoundButtonPanel"], { text: "Click", type: "click" }),
