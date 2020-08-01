@@ -2,4 +2,4 @@ version: "3"
 services:
   php_websocket:
     ports:
-      - 8001:8001
+      - 8006:8000

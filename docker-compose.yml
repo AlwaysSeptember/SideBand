@@ -10,10 +10,6 @@ services:
 
   php_websocket:
     build: containers/php_websocket
-    networks:
-      default_network:
-    ports:
-      - 8001:8001
     volumes:
       - .:/var/app
 
