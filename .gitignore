@@ -1,0 +1,16 @@
+/containers/nginx/config/nginx.conf
+/containers/varnish/config/default.vcl
+/containers/php-fpm/config/fpm.conf.php
+/containers/varnish/config/php.ini
+/autoconf.php
+# .idea
+/data
+node_modules
+var
+vendor
+containers/php_fpm/config/fpm.conf
+containers/php_fpm/config/php.ini
+tmp/coverage
+tmp
+packages
+/app/autoconf.php

@@ -1,0 +1,21 @@
+{
+    "name": "danack/sideband_server",
+    "description": "sideband comms for chat",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Danack",
+            "email": "Danack@basereality.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "amphp/http-server-router": "^1.0",
+        "amphp/http-server-static-content": "^1.0",
+        "amphp/log": "^1.1",
+        "amphp/websocket-server": "^2.0",
+        "danack/configurator": "1.0.0"
+    }
+}
