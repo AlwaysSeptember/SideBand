@@ -32,11 +32,6 @@ let panels: WidgetClassBinding[] = [
         class: 'people_list_panel',
         component: PeopleListPanel
     },
-
-
-
-
-
 ];
 
 initByClass(panels, h, render);

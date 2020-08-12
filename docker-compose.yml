@@ -5,11 +5,11 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - .:/var/app
+      - .:/var/app:delegated
   php_websocket:
     build: containers/php_websocket
     volumes:
-      - .:/var/app
+      - .:/var/app:delegated
 
 networks:
   default_network:

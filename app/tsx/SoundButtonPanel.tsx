@@ -17,7 +17,7 @@ function clickWasPressed(type: string) {
 }
 
 export function SoundButtonPanel(props: SoundButtonProps) {
-  // @ts-ignore: I don't understand that error message.
+
   return <button onClick={() => clickWasPressed(props.type)}>{props.text}</button>;
 }
 

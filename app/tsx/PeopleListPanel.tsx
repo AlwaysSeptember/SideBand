@@ -28,6 +28,7 @@ function is_over_seconds_ago (date: number, seconds: number) {
 export class PeopleListPanel extends Component<PeopleListPanelProps, PeopleListPanelState> {
 
     listClearing: any = null;
+    message_listener:number = 0;
 
     constructor(props: PeopleListPanelProps) {
         super(props);
@@ -37,9 +38,8 @@ export class PeopleListPanel extends Component<PeopleListPanelProps, PeopleListP
     }
 
     componentDidMount() {
-        registerMessageListener(
+        this.message_listener = registerMessageListener(
             EventType.received_sound,
-            "PeopleListPanel_1",
             (data: any) => this.listPerson(data)
         );
 
@@ -48,8 +48,7 @@ export class PeopleListPanel extends Component<PeopleListPanelProps, PeopleListP
 
     componentWillUnmount() {
         unregisterListener(
-            EventType.trigger_sound,
-            "PeopleListPanel_1"
+            this.message_listener
         );
 
         clearInterval(this.listClearing)

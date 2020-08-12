@@ -2,24 +2,25 @@ const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 
-
-// const WebpackModules = require('webpack-modules');
-
-// const optionDefinitions = [
-//     { name: 'verbose', alias: 'v', type: Boolean },
-//     { name: 'src', type: String, multiple: true, defaultOption: true },
-//     { name: 'timeout', alias: 't', type: Number },
-//     { name: 'mode', type: String, defaultOption: 'unknown' },
-//     { name: 'analyze', type: Boolean, defaultOption: false },
-//     { name: 'watch', type: Boolean},
-// ];
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 
-// const commandLineArgs = require('command-line-args');
-// const options = commandLineArgs(
-//   optionDefinitions,
-//   {partial: false}
-// );
+
+const optionDefinitions = [
+    // { name: 'verbose', alias: 'v', type: Boolean },
+    // { name: 'src', type: String, multiple: true, defaultOption: true },
+    // { name: 'timeout', alias: 't', type: Number },
+    { name: 'mode', type: String, defaultOption: 'unknown' },
+    { name: 'analyze', type: Boolean, defaultOption: false },
+    { name: 'watch', type: Boolean},
+];
+
+
+const commandLineArgs = require('command-line-args');
+const options = commandLineArgs(
+   optionDefinitions,
+   {partial: false}
+);
 
 const SRC = path.resolve(__dirname, 'tsx');
 
@@ -90,6 +91,16 @@ module.exports = {
         new webpack.optimize.LimitChunkCountPlugin({
             maxChunks: 1,
         }),
+
+
+        new BundleAnalyzerPlugin({
+            analyzerHost: "0.0.0.0",
+            // analyzerMode: options.analyze === "enabled" ? 'static': "server",
+            analyzerMode: "static",
+            openAnalyzer: false,
+            generateStatsFile: true
+        })
+
     ],
     resolve: {
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],

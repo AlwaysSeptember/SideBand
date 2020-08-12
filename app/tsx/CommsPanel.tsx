@@ -20,6 +20,7 @@ export class CommsPanel extends Component<ConnectionPanelProps, ConnectionPanelS
     connectInterval:number = null;
     timeout:number = 250; // Initial timeout duration as a class variable
     ws:WebSocket|null =  null;
+    message_listener:number = 0;
 
     constructor(props: ConnectionPanelProps) {
         super(props);
@@ -33,17 +34,15 @@ export class CommsPanel extends Component<ConnectionPanelProps, ConnectionPanelS
     componentDidMount() {
         this.connect();
 
-        registerMessageListener(
+        this.message_listener = registerMessageListener(
             EventType.trigger_sound,
-            "CommsPanel_1",
             (data: any) => this.sendSound(data)
         );
     }
 
     componentWillUnmount() {
         unregisterListener(
-            EventType.trigger_sound,
-            "CommsPanel_1"
+            this.message_listener
         );
     }
 
